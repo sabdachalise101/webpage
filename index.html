@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sabda homepage</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>SABDA CHALISE WEBSITE</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="about.html">About</a>
+        <a href="#">Contact</a>
+        <a href="mailto:chalisesabda4@gmail.com?subject=Hello">Send Email</a>
+        <form id="myForm" action="#" method="post">
+            <input type="text" name="username" placeholder="Full Name" required>
+            <input type="text" name="email" placeholder="Your Email" required>
+            <input type="password" name="password" placeholder="Type your password" required>
+
+            <p>Choose your gender:
+                <input type="radio" name="gender" value="male" required>
+                <label for="male">Male</label>
+
+                <input type="radio" name="gender" value="female" required>
+                <label for="female">Female</label>
+            </p>
+
+            <button type="button" name="submit" id="submitButton"  submitForm();" tabindex="5">Submit</button>
+        </form>
+    </nav>
+
+    <img src="//storage/emulated/0/Download/channels4_banner.jpg" alt="Image" height="200">
+
+    <!-- Container to display the submitted data -->
+    <div id="submittedData"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
