@@ -152,6 +152,7 @@ const products = [
     { name: 'Product 8', price: 8000, image: 'product8.jpg' },
     { name: 'Product 9', price: 9000, image: 'product9.jpg' },
     { name: 'Product 10', price: 10000, image: 'product10.jpg' },
+    { name: 'Product 11', price: 10100, image: 'product10.jpg' },
 ];
 
 // Add sample products to the home section
