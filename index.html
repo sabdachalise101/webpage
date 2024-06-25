@@ -88,6 +88,7 @@
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
+            console.log('User signed in:', profile.getName(), profile.getEmail());
             document.getElementById('user-name').textContent = 'Name: ' + profile.getName();
             document.getElementById('user-email').textContent = 'Email: ' + profile.getEmail();
             document.getElementById('name').value = profile.getName();
@@ -101,9 +102,9 @@
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
+                console.log('User signed out.');
                 document.getElementById('user-name').textContent = 'Name: John Doe';
                 document.getElementById('user-email').textContent = 'Email: john.doe@example.com';
-                console.log('User signed out.');
                 localStorage.setItem('isSignedIn', 'false');
                 localStorage.removeItem('userName');
                 localStorage.removeItem('userEmail');
@@ -119,14 +120,22 @@
             if (checkSignInStatus()) {
                 const userName = localStorage.getItem('userName');
                 const userEmail = localStorage.getItem('userEmail');
+                console.log('Loading user details from localStorage:', userName, userEmail);
                 document.getElementById('user-name').textContent = 'Name: ' + userName;
                 document.getElementById('user-email').textContent = 'Email: ' + userEmail;
                 document.getElementById('name').value = userName;
                 document.getElementById('email').value = userEmail;
                 document.querySelector('.g-signin2').style.display = 'none';
             } else {
+                console.log('User is not signed in.');
                 document.querySelector('.g-signin2').style.display = 'block';
             }
+        }
+
+        window.onload = () => {
+            console.log('Page loaded');
+            loadProducts();
+            loadUserDetails();
         }
     </script>
 </body>

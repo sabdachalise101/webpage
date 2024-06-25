@@ -94,11 +94,6 @@ function processCheckout(event) {
     showSection('home');
 
     // Update purchase history
-    updatePurchaseHistory(orderDetails);
-}
-
-// Function to update purchase history
-function updatePurchaseHistory(orderDetails) {
     const purchaseHistory = document.getElementById('purchase-history');
     const li = document.createElement('li');
     li.innerHTML = `
@@ -154,7 +149,7 @@ function loadProducts() {
 
 // Load products on page load
 window.onload = () => {
+    console.log('Page loaded');
     loadProducts();
     loadUserDetails();
 };
-gu
