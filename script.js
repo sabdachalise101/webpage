@@ -52,7 +52,9 @@ function handleCheckout() {
     const isSignedIn = auth2.isSignedIn.get();
 
     if (!isSignedIn) {
-        alert('Please sign in with Google to proceed to checkout.');
+        auth2.signIn().then(() => {
+            showSection('checkout-details');
+        });
     } else {
         showSection('checkout-details');
     }
@@ -122,6 +124,22 @@ function toggleEditDetailsForm() {
     editDetailsForm.classList.toggle('hidden');
 }
 
+// Function to handle form submission for edit details
+function handleEditDetails(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get form input values
+    const name = document.getElementById('edit-name').value;
+    const email = document.getElementById('edit-email').value;
+
+    // Update user details
+    document.getElementById('user-name').textContent = `Name: ${name}`;
+    document.getElementById('user-email').textContent = `Email: ${email}`;
+
+    // Hide the edit details form
+    toggleEditDetailsForm();
+}
+
 // Sample products to be added to the home section
 const products = [
     { name: 'Product 1', price: 1000, image: 'product1.jpg' },
@@ -129,24 +147,23 @@ const products = [
     { name: 'Product 3', price: 3000, image: 'product3.jpg' },
     { name: 'Product 4', price: 4000, image: 'product4.jpg' },
     { name: 'Product 5', price: 5000, image: 'product5.jpg' },
-    { name: 'Product 6', price: 6000, image: 'product6.jpg' }
+    { name: 'Product 6', price: 6000, image: 'product6.jpg' },
+    { name: 'Product 7', price: 7000, image: 'product7.jpg' },
+    { name: 'Product 8', price: 8000, image: 'product8.jpg' },
+    { name: 'Product 9', price: 9000, image: 'product9.jpg' },
+    { name: 'Product 10', price: 10000, image: 'product10.jpg' },
 ];
 
-// Function to load products to the home section
-function loadProducts() {
-    const productsGrid = document.querySelector('.products-grid');
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>NPR ${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
-        `;
-        productsGrid.appendChild(productCard);
-    });
-}
-
-// Load products on page load
-window.onload = loadProducts;
+// Add sample products to the home section
+const productsGrid = document.querySelector('.products-grid');
+products.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.classList.add('product');
+    productElement.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p class="price">NPR ${product.price.toFixed(2)}</p>
+        <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+    `;
+    productsGrid.appendChild(productElement);
+});

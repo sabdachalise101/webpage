@@ -43,14 +43,21 @@
             <div id="user-info">
                 <p id="user-name">Name: John Doe</p>
                 <p id="user-email">Email: john.doe@example.com</p>
+                <button onclick="toggleEditDetailsForm()">Edit Details</button>
             </div>
-            <button onclick="toggleEditDetailsForm()">Edit Details</button>
+            <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name" required>
+                <label for="edit-email">Email:</label>
+                <input type="email" id="edit-email" required>
+                <button type="submit">Save</button>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </form>
             <a href="#" onclick="signOut();">Sign out</a>
             <h3>Purchase History</h3>
             <ul id="purchase-history">
                 <!-- Purchase history items will be added here -->
             </ul>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </section>
 
         <section id="checkout-details" class="section hidden">
@@ -90,8 +97,8 @@
             var profile = googleUser.getBasicProfile();
             document.getElementById('user-name').textContent = 'Name: ' + profile.getName();
             document.getElementById('user-email').textContent = 'Email: ' + profile.getEmail();
-            document.getElementById('name').value = profile.getName();
-            document.getElementById('email').value = profile.getEmail();
+            document.getElementById('edit-name').value = profile.getName();
+            document.getElementById('edit-email').value = profile.getEmail();
         }
 
         function signOut() {
@@ -105,3 +112,5 @@
     </script>
 </body>
 </html>
+
+
