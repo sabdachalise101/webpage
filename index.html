@@ -92,6 +92,7 @@
             document.getElementById('user-email').textContent = 'Email: ' + profile.getEmail();
             document.getElementById('name').value = profile.getName();
             document.getElementById('email').value = profile.getEmail();
+            localStorage.setItem('isSignedIn', 'true');
         }
 
         function signOut() {
@@ -100,7 +101,12 @@
                 document.getElementById('user-name').textContent = 'Name: John Doe';
                 document.getElementById('user-email').textContent = 'Email: john.doe@example.com';
                 console.log('User signed out.');
+                localStorage.setItem('isSignedIn', 'false');
             });
+        }
+
+        function checkSignInStatus() {
+            return localStorage.getItem('isSignedIn') === 'true';
         }
     </script>
 </body>

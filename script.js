@@ -48,8 +48,7 @@ function showSection(sectionId) {
 
 // Function to handle checkout
 function handleCheckout() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    const isSignedIn = auth2.isSignedIn.get();
+    const isSignedIn = checkSignInStatus();
 
     if (!isSignedIn) {
         alert('Please sign in with Google to proceed to checkout.');
