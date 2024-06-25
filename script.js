@@ -48,7 +48,8 @@ function showSection(sectionId) {
 
 // Function to handle checkout
 function handleCheckout() {
-    const isSignedIn = checkSignInStatus();
+    const auth2 = gapi.auth2.getAuthInstance();
+    const isSignedIn = auth2.isSignedIn.get();
 
     if (!isSignedIn) {
         alert('Please sign in with Google to proceed to checkout.');
@@ -94,34 +95,34 @@ function processCheckout(event) {
     showSection('home');
 
     // Update purchase history
+    updatePurchaseHistory(orderDetails);
+}
+
+// Function to update purchase history
+function updatePurchaseHistory(orderDetails) {
     const purchaseHistory = document.getElementById('purchase-history');
     const li = document.createElement('li');
     li.innerHTML = `
-        <h4>Order</h4>
-        <p>Name: ${orderDetails.name}</p>
-        <p>Email: ${orderDetails.email}</p>
-        <p>Phone: ${orderDetails.phone}</p>
-        <p>Address: ${orderDetails.address}</p>
-        <p>Payment Method: ${orderDetails.paymentMethod}</p>
-        <h5>Products:</h5>
+        <strong>Name:</strong> ${orderDetails.name}<br>
+        <strong>Email:</strong> ${orderDetails.email}<br>
+        <strong>Phone:</strong> ${orderDetails.phone}<br>
+        <strong>Address:</strong> ${orderDetails.address}<br>
+        <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
+        <strong>Products:</strong><br>
         <ul>
-            ${orderDetails.products.map(product => `
-                <li>
-                    ${product.product} - NPR ${product.price.toFixed(2)}
-                </li>
-            `).join('')}
-        </ul>
+            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)}</li>`).join('')}
+        </ul><br>
     `;
     purchaseHistory.appendChild(li);
 }
 
-// Function to toggle the edit details form
+// Function to toggle the edit details form visibility
 function toggleEditDetailsForm() {
-    const form = document.getElementById('checkout-form');
-    form.classList.toggle('hidden');
+    const editDetailsForm = document.getElementById('edit-details-form');
+    editDetailsForm.classList.toggle('hidden');
 }
 
-// Product data
+// Sample products to be added to the home section
 const products = [
     { name: 'Product 1', price: 1000, image: 'product1.jpg' },
     { name: 'Product 2', price: 2000, image: 'product2.jpg' },
@@ -148,8 +149,4 @@ function loadProducts() {
 }
 
 // Load products on page load
-window.onload = () => {
-    console.log('Page loaded');
-    loadProducts();
-    loadUserDetails();
-};
+window.onload = loadProducts;

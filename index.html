@@ -11,9 +11,6 @@
 <body>
     <header>
         <h1>My E-commerce Store</h1>
-        <div id="user-info-top-right" style="display: none;">
-            <img id="user-pic" src="" alt="User Picture" style="width: 40px; height: 40px; border-radius: 50%;">
-        </div>
     </header>
 
     <!-- Navigation Buttons -->
@@ -39,7 +36,6 @@
             </ul>
             <p id="total">Total: NPR <span id="total-amount">0.00</span></p>
             <button id="checkout" onclick="handleCheckout()">Checkout</button>
-            <p id="signin-checkout-message" style="display: none; color: red;">Please sign in from the My Details section to proceed to checkout.</p>
         </section>
 
         <section id="details" class="section">
@@ -54,7 +50,7 @@
             <ul id="purchase-history">
                 <!-- Purchase history items will be added here -->
             </ul>
-            <div class="g-signin2" data-onsuccess="onSignIn" data-ux_mode="redirect" data-callback="onSignIn"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </section>
 
         <section id="checkout-details" class="section hidden">
@@ -92,64 +88,19 @@
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
-            console.log('User signed in:', profile.getName(), profile.getEmail(), profile.getImageUrl());
             document.getElementById('user-name').textContent = 'Name: ' + profile.getName();
             document.getElementById('user-email').textContent = 'Email: ' + profile.getEmail();
             document.getElementById('name').value = profile.getName();
             document.getElementById('email').value = profile.getEmail();
-            localStorage.setItem('isSignedIn', 'true');
-            localStorage.setItem('userName', profile.getName());
-            localStorage.setItem('userEmail', profile.getEmail());
-            localStorage.setItem('userPic', profile.getImageUrl());
-            document.querySelector('.g-signin2').style.display = 'none';
-            document.getElementById('user-info-top-right').style.display = 'block';
-            document.getElementById('user-pic').src = profile.getImageUrl();
         }
 
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-                console.log('User signed out.');
                 document.getElementById('user-name').textContent = 'Name: John Doe';
                 document.getElementById('user-email').textContent = 'Email: john.doe@example.com';
-                localStorage.setItem('isSignedIn', 'false');
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userPic');
-                document.querySelector('.g-signin2').style.display = 'block';
-                document.getElementById('user-info-top-right').style.display = 'none';
-                document.getElementById('user-pic').src = '';
+                console.log('User signed out.');
             });
-        }
-
-        function checkSignInStatus() {
-            return localStorage.getItem('isSignedIn') === 'true';
-        }
-
-        function loadUserDetails() {
-            if (checkSignInStatus()) {
-                const userName = localStorage.getItem('userName');
-                const userEmail = localStorage.getItem('userEmail');
-                const userPic = localStorage.getItem('userPic');
-                console.log('Loading user details from localStorage:', userName, userEmail, userPic);
-                document.getElementById('user-name').textContent = 'Name: ' + userName;
-                document.getElementById('user-email').textContent = 'Email: ' + userEmail;
-                document.getElementById('name').value = userName;
-                document.getElementById('email').value = userEmail;
-                document.querySelector('.g-signin2').style.display = 'none';
-                document.getElementById('user-info-top-right').style.display = 'block';
-                document.getElementById('user-pic').src = userPic;
-            } else {
-                console.log('User is not signed in.');
-                document.querySelector('.g-signin2').style.display = 'block';
-                document.getElementById('user-info-top-right').style.display = 'none';
-            }
-        }
-
-        window.onload = () => {
-            console.log('Page loaded');
-            loadProducts();
-            loadUserDetails();
         }
     </script>
 </body>
