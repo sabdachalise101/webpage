@@ -50,7 +50,7 @@
             <ul id="purchase-history">
                 <!-- Purchase history items will be added here -->
             </ul>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-ux_mode="redirect" data-callback="onSignIn"></div>
         </section>
 
         <section id="checkout-details" class="section hidden">
@@ -93,6 +93,9 @@
             document.getElementById('name').value = profile.getName();
             document.getElementById('email').value = profile.getEmail();
             localStorage.setItem('isSignedIn', 'true');
+            localStorage.setItem('userName', profile.getName());
+            localStorage.setItem('userEmail', profile.getEmail());
+            document.querySelector('.g-signin2').style.display = 'none';
         }
 
         function signOut() {
@@ -102,11 +105,28 @@
                 document.getElementById('user-email').textContent = 'Email: john.doe@example.com';
                 console.log('User signed out.');
                 localStorage.setItem('isSignedIn', 'false');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                document.querySelector('.g-signin2').style.display = 'block';
             });
         }
 
         function checkSignInStatus() {
             return localStorage.getItem('isSignedIn') === 'true';
+        }
+
+        function loadUserDetails() {
+            if (checkSignInStatus()) {
+                const userName = localStorage.getItem('userName');
+                const userEmail = localStorage.getItem('userEmail');
+                document.getElementById('user-name').textContent = 'Name: ' + userName;
+                document.getElementById('user-email').textContent = 'Email: ' + userEmail;
+                document.getElementById('name').value = userName;
+                document.getElementById('email').value = userEmail;
+                document.querySelector('.g-signin2').style.display = 'none';
+            } else {
+                document.querySelector('.g-signin2').style.display = 'block';
+            }
         }
     </script>
 </body>

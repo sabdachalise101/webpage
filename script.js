@@ -102,26 +102,31 @@ function updatePurchaseHistory(orderDetails) {
     const purchaseHistory = document.getElementById('purchase-history');
     const li = document.createElement('li');
     li.innerHTML = `
-        <strong>Name:</strong> ${orderDetails.name}<br>
-        <strong>Email:</strong> ${orderDetails.email}<br>
-        <strong>Phone:</strong> ${orderDetails.phone}<br>
-        <strong>Address:</strong> ${orderDetails.address}<br>
-        <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
-        <strong>Products:</strong><br>
+        <h4>Order</h4>
+        <p>Name: ${orderDetails.name}</p>
+        <p>Email: ${orderDetails.email}</p>
+        <p>Phone: ${orderDetails.phone}</p>
+        <p>Address: ${orderDetails.address}</p>
+        <p>Payment Method: ${orderDetails.paymentMethod}</p>
+        <h5>Products:</h5>
         <ul>
-            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)}</li>`).join('')}
-        </ul><br>
+            ${orderDetails.products.map(product => `
+                <li>
+                    ${product.product} - NPR ${product.price.toFixed(2)}
+                </li>
+            `).join('')}
+        </ul>
     `;
     purchaseHistory.appendChild(li);
 }
 
-// Function to toggle the edit details form visibility
+// Function to toggle the edit details form
 function toggleEditDetailsForm() {
-    const editDetailsForm = document.getElementById('edit-details-form');
-    editDetailsForm.classList.toggle('hidden');
+    const form = document.getElementById('checkout-form');
+    form.classList.toggle('hidden');
 }
 
-// Sample products to be added to the home section
+// Product data
 const products = [
     { name: 'Product 1', price: 1000, image: 'product1.jpg' },
     { name: 'Product 2', price: 2000, image: 'product2.jpg' },
@@ -148,4 +153,8 @@ function loadProducts() {
 }
 
 // Load products on page load
-window.onload = loadProducts;
+window.onload = () => {
+    loadProducts();
+    loadUserDetails();
+};
+gu
