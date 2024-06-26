@@ -9,18 +9,29 @@
     <meta name="google-signin-client_id" content="568400859790-5n6a3p3j6jrplesddd3csv3tl8jgo49h.apps.googleusercontent.com">
 </head>
 <body>
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <form id="login-form" onsubmit="authenticateUser(event)">
+                <h2>Login</h2>
+                <label for="username">Username:</label>
+                <input type="text" id="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
     <header>
         <h1>My E-commerce Store</h1>
     </header>
 
-    <!-- Navigation Buttons -->
     <nav>
         <button onclick="showSection('home')">Home</button>
         <button onclick="showSection('cart')">My Cart (<span id="cart-count">0</span>)</button>
         <button onclick="showSection('details')">My Details</button>
     </nav>
 
-    <!-- Main Content Sections -->
     <main id="content">
         <section id="home" class="section active">
             <h2>Home</h2>
@@ -43,21 +54,14 @@
             <div id="user-info">
                 <p id="user-name">Name: John Doe</p>
                 <p id="user-email">Email: john.doe@example.com</p>
-                <button onclick="toggleEditDetailsForm()">Edit Details</button>
             </div>
-            <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
-                <label for="edit-name">Name:</label>
-                <input type="text" id="edit-name" required>
-                <label for="edit-email">Email:</label>
-                <input type="email" id="edit-email" required>
-                <button type="submit">Save</button>
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </form>
+            <button onclick="toggleEditDetailsForm()">Edit Details</button>
             <a href="#" onclick="signOut();">Sign out</a>
             <h3>Purchase History</h3>
             <ul id="purchase-history">
                 <!-- Purchase history items will be added here -->
             </ul>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </section>
 
         <section id="checkout-details" class="section hidden">
@@ -82,23 +86,20 @@
         </section>
     </main>
 
-    <!-- Floating Cart Icon -->
     <div id="floating-cart" onclick="showSection('cart')">
         <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
         <span id="floating-cart-count">0</span>
     </div>
 
-    <!-- JavaScript file for additional functionality -->
     <script src="script.js"></script>
 
-    <!-- Script to handle Google Sign-In callback -->
     <script>
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             document.getElementById('user-name').textContent = 'Name: ' + profile.getName();
             document.getElementById('user-email').textContent = 'Email: ' + profile.getEmail();
-            document.getElementById('edit-name').value = profile.getName();
-            document.getElementById('edit-email').value = profile.getEmail();
+            document.getElementById('name').value = profile.getName();
+            document.getElementById('email').value = profile.getEmail();
         }
 
         function signOut() {
@@ -109,6 +110,34 @@
                 console.log('User signed out.');
             });
         }
+
+        // JavaScript for login modal
+        window.onload = function() {
+            const modal = document.getElementById('login-modal');
+            const loginForm = document.getElementById('login-form');
+            modal.style.display = 'block'; // Show the modal
+
+            // Function to authenticate the user
+            function authenticateUser(event) {
+                event.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // Replace these with your actual username and password
+                const correctUsername = 'chalisesabda4@gmail.com';
+                const correctPassword = 'private@sabdachalise.com.np';
+
+                if (username === correctUsername && password === correctPassword) {
+                    modal.style.display = 'none'; // Hide the modal
+                } else {
+                    alert('Incorrect username or password');
+                }
+            }
+
+            // Attach the authenticate function to the form's submit event
+            loginForm.onsubmit = authenticateUser;
+        };
     </script>
 </body>
 </html>
+

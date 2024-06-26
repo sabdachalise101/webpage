@@ -48,7 +48,8 @@ function showSection(sectionId) {
 
 // Function to handle checkout
 function handleCheckout() {
-    const isSignedIn = checkSignInStatus();
+    const auth2 = gapi.auth2.getAuthInstance();
+    const isSignedIn = auth2.isSignedIn.get();
 
     if (!isSignedIn) {
         alert('Please sign in with Google to proceed to checkout.');
@@ -107,45 +108,73 @@ function updatePurchaseHistory(orderDetails) {
         <strong>Phone:</strong> ${orderDetails.phone}<br>
         <strong>Address:</strong> ${orderDetails.address}<br>
         <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
-        <strong>Products:</strong><br>
+        <strong>Products:</strong>
         <ul>
-            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)}</li>`).join('')}
-        </ul><br>
+            ${orderDetails.products.map(item => `<li>${item.product} - NPR ${item.price.toFixed(2)}</li>`).join('')}
+        </ul>
     `;
     purchaseHistory.appendChild(li);
 }
 
-// Function to toggle the edit details form visibility
-function toggleEditDetailsForm() {
-    const editDetailsForm = document.getElementById('edit-details-form');
-    editDetailsForm.classList.toggle('hidden');
-}
-
-// Sample products to be added to the home section
+// Example products array
 const products = [
-    { name: 'Product 1', price: 1000, image: 'product1.jpg' },
-    { name: 'Product 2', price: 2000, image: 'product2.jpg' },
-    { name: 'Product 3', price: 3000, image: 'product3.jpg' },
-    { name: 'Product 4', price: 4000, image: 'product4.jpg' },
-    { name: 'Product 5', price: 5000, image: 'product5.jpg' },
-    { name: 'Product 6', price: 6000, image: 'product6.jpg' }
+    {
+        product: 'Product 1',
+        price: 10.00,
+        image: 'https://via.placeholder.com/100'
+    },
+    {
+        product: 'Product 2',
+        price: 20.00,
+        image: 'https://via.placeholder.com/100'
+    },
+    {
+        product: 'Product 3',
+        price: 30.00,
+        image: 'https://via.placeholder.com/100'
+    }
 ];
 
-// Function to load products to the home section
-function loadProducts() {
+// Function to generate product items dynamically
+function generateProductItems() {
     const productsGrid = document.querySelector('.products-grid');
     products.forEach(product => {
         const productCard = document.createElement('div');
         productCard.classList.add('product-card');
         productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
+            <img src="${product.image}" alt="${product.product}">
+            <h3>${product.product}</h3>
             <p>NPR ${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+            <button onclick="addToCart(this, '${product.product}', ${product.price}, '${product.image}')">Add to Cart</button>
         `;
         productsGrid.appendChild(productCard);
     });
 }
 
-// Load products on page load
-window.onload = loadProducts;
+// Generate product items on page load
+window.onload = function() {
+    generateProductItems();
+    const modal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    modal.style.display = 'block'; // Show the modal
+
+    // Function to authenticate the user
+    function authenticateUser(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Replace these with your actual username and password
+        const correctUsername = 'chalisesabda4@gmail.com';
+        const correctPassword = 'private@sabdachalise.com.np';
+
+        if (username === correctUsername && password === correctPassword) {
+            modal.style.display = 'none'; // Hide the modal
+        } else {
+            alert('Incorrect username or password');
+        }
+    }
+
+    // Attach the authenticate function to the form's submit event
+    loginForm.onsubmit = authenticateUser;
+};
