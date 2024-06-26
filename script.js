@@ -47,19 +47,18 @@ function showSection(sectionId) {
 }
 
 // Function to handle checkout
-function handleCheckout() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    const isSignedIn = auth2.isSignedIn.get();
-
-    if (!isSignedIn) {
-        alert('Please sign in with Google to proceed to checkout.');
-    } else {
-        showSection('checkout-details');
+function checkout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
     }
+
+    // Show the checkout details section
+    showSection('checkout-details');
 }
 
 // Function to handle form submission for checkout
-function processCheckout(event) {
+function handleCheckout(event) {
     event.preventDefault(); // Prevent form submission
 
     // Get form input values
@@ -91,11 +90,11 @@ function processCheckout(event) {
     updateCart();
     updateCartCount();
 
-    // Redirect to the home page
-    showSection('home');
-
     // Update purchase history
     updatePurchaseHistory(orderDetails);
+
+    // Redirect to the home page
+    showSection('home');
 }
 
 // Function to update purchase history
@@ -108,73 +107,72 @@ function updatePurchaseHistory(orderDetails) {
         <strong>Phone:</strong> ${orderDetails.phone}<br>
         <strong>Address:</strong> ${orderDetails.address}<br>
         <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
-        <strong>Products:</strong>
+        <strong>Products:</strong><br>
         <ul>
-            ${orderDetails.products.map(item => `<li>${item.product} - NPR ${item.price.toFixed(2)}</li>`).join('')}
-        </ul>
+            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)}</li>`).join('')}
+        </ul><br>
     `;
     purchaseHistory.appendChild(li);
 }
 
-// Example products array
-const products = [
-    {
-        product: 'Product 1',
-        price: 10.00,
-        image: 'https://via.placeholder.com/100'
-    },
-    {
-        product: 'Product 2',
-        price: 20.00,
-        image: 'https://via.placeholder.com/100'
-    },
-    {
-        product: 'Product 3',
-        price: 30.00,
-        image: 'https://via.placeholder.com/100'
-    }
-];
-
-// Function to generate product items dynamically
-function generateProductItems() {
-    const productsGrid = document.querySelector('.products-grid');
-    products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
-            <img src="${product.image}" alt="${product.product}">
-            <h3>${product.product}</h3>
-            <p>NPR ${product.price.toFixed(2)}</p>
-            <button onclick="addToCart(this, '${product.product}', ${product.price}, '${product.image}')">Add to Cart</button>
-        `;
-        productsGrid.appendChild(productCard);
-    });
+// Function to toggle the edit details form visibility
+function toggleEditDetailsForm() {
+    const editDetailsForm = document.getElementById('edit-details-form');
+    editDetailsForm.classList.toggle('hidden');
 }
 
-// Generate product items on page load
-window.onload = function() {
-    generateProductItems();
-    const modal = document.getElementById('login-modal');
-    const loginForm = document.getElementById('login-form');
-    modal.style.display = 'block'; // Show the modal
+// Function to handle form submission for edit details
+function handleEditDetails(event) {
+    event.preventDefault(); // Prevent form submission
 
-    // Function to authenticate the user
-    function authenticateUser(event) {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    // Get form input values
+    const name = document.getElementById('edit-name').value;
+    const email = document.getElementById('edit-email').value;
 
-        // Replace these with your actual username and password
-        const correctUsername = 'chalisesabda4@gmail.com';
-        const correctPassword = 'private@sabdachalise.com.np';
+    // Update name and email in "My Details" section
+    document.getElementById('user-name').textContent = `Name: ${name}`;
+    document.getElementById('user-email').textContent = `Email: ${email}`;
 
-        if (username === correctUsername && password === correctPassword) {
-            modal.style.display = 'none'; // Hide the modal
-        } else {
-            alert('Incorrect username or password');
-        }
-    }
+    // Hide the edit details form after submission
+    const editDetailsForm = document.getElementById('edit-details-form');
+    editDetailsForm.classList.add('hidden');
+}
 
-    // Attach the authenticate function to the form's submit event
-    loginForm.onsubmit = authenticateUser;
-};
+// Event listener for edit details form submission
+document.getElementById('edit-details-form').addEventListener('submit', handleEditDetails);
+
+// Event listener for checkout form submission
+document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
+
+// Sample products
+const products = [
+    { name: "Product 1", price: 10.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 2", price: 20.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 3", price: 30.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 4", price: 40.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 5", price: 50.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 6", price: 60.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 7", price: 70.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 8", price: 80.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 9", price: 90.00, image: "https://via.placeholder.com/150" },
+    { name: "Product 10", price: 100.00, image: "https://via.placeholder.com/150" }
+];
+
+// Display products
+const productsGrid = document.querySelector('.products-grid');
+products.forEach(product => {
+    const productElement = document.createElement('div');
+    productElement.classList.add('product');
+    productElement.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p class="price">NPR ${product.price.toFixed(2)}</p>
+        <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+    `;
+    productsGrid.appendChild(productElement);
+});
+
+// Show the home section by default
+showSection('home');
+
+   
