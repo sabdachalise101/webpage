@@ -174,5 +174,3 @@ products.forEach(product => {
 
 // Show the home section by default
 showSection('home');
-
-   
