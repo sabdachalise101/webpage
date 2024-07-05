@@ -39,6 +39,15 @@
             padding: 10px;
             width: 80%;
         }
+        .hidden {
+            display: none;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -65,7 +74,7 @@
         </nav>
 
         <main>
-            <section id="home" class="section active">
+            <section id="home" class="section">
                 <h2>Home</h2>
                 <div class="products-grid">
                     <!-- Product items will be added dynamically -->
@@ -134,9 +143,9 @@
         const validUsernameHash = '07ad17bb399bde4741730d450a31d6ac'; // MD5 hash for private@sabdachalise.com.np
         const validPasswordHash = '4026311e5d62cfff81db892567fd48be'; // MD5 hash for chalisesabda4@gmail.com
 
-        document.body.addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('overlay').style.display = 'flex';
-        }, { once: true });
+        });
 
         function checkCredentials() {
             const username = document.getElementById('username').value;
@@ -151,6 +160,8 @@
             if (usernameHash === validUsernameHash && passwordHash === validPasswordHash) {
                 document.getElementById('overlay').style.display = 'none';
                 document.getElementById('content').classList.remove('blur');
+                showSection('home');
+                displayProducts(); // Ensure products are displayed after login
             } else {
                 alert('Invalid credentials, please try again.');
             }
@@ -182,6 +193,31 @@
         function handleCheckout(event) {
             event.preventDefault();
             // Handle checkout logic here
+        }
+
+        // Sample product data
+        const products = [
+            { name: "Product 1", price: 10.00, image: "https://via.placeholder.com/150" },
+            { name: "Product 2", price: 20.00, image: "https://via.placeholder.com/150" }
+        ];
+
+        function displayProducts() {
+            const productsGrid = document.querySelector('.products-grid');
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('product');
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p class="price">NPR ${product.price.toFixed(2)}</p>
+                    <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+                `;
+                productsGrid.appendChild(productElement);
+            });
+        }
+
+        function addToCart(button, name, price, image) {
+            // Add to cart functionality here
         }
     </script>
 </body>
