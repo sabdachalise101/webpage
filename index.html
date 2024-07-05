@@ -5,7 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure E-commerce</title>
     <link rel="stylesheet" href="styles.css">
-   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .blur {
+            filter: blur(10px);
+            pointer-events: none;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .login-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .login-box input {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 80%;
+        }
+    </style>
 </head>
 <body>
     <!-- Login Overlay -->
@@ -97,8 +131,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
-        const validUsernameHash = '07ad17bb399bde4741730d450a31d6ac'; 
-        const validPasswordHash = '4026311e5d62cfff81db892567fd48be'; 
+        const validUsernameHash = '07ad17bb399bde4741730d450a31d6ac'; // MD5 hash for private@sabdachalise.com.np
+        const validPasswordHash = '4026311e5d62cfff81db892567fd48be'; // MD5 hash for chalisesabda4@gmail.com
+
         document.body.addEventListener('click', function() {
             document.getElementById('overlay').style.display = 'flex';
         }, { once: true });
@@ -117,7 +152,7 @@
                 document.getElementById('overlay').style.display = 'none';
                 document.getElementById('content').classList.remove('blur');
             } else {
-                alert('Invalid credentials, please email private@sabdachalise.com.np with subject "From sabdachalise.com.np".');
+                alert('Invalid credentials, please try again.');
             }
         }
 
