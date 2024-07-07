@@ -1,12 +1,21 @@
 let cart = [];
 let totalAmount = 0;
 
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('overlay').style.display = 'flex';
+    displayProducts();
+    document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
+    document.getElementById('edit-details-form').addEventListener('submit', handleEditDetails);
+    document.getElementById('search-input').addEventListener('input', searchProducts);
+});
+
 // Function to add a product to the cart
-function addToCart(button, product, price, image) {
-    cart.push({ product, price, image });
-    totalAmount += price;
+function addToCart(button, product, price, image, quantity) {
+    cart.push({ product, price, image, quantity });
+    totalAmount += price * quantity;
     updateCart();
     updateCartCount();
+    button.disabled = true; // Disable the button after adding to cart
 }
 
 // Function to update the cart display
@@ -20,7 +29,7 @@ function updateCart() {
             <img src="${item.image}" alt="${item.product}">
             <div>
                 <h4>${item.product}</h4>
-                <p>NPR ${item.price.toFixed(2)}</p>
+                <p>NPR ${item.price.toFixed(2)} x ${item.quantity}</p>
             </div>
         `;
         cartElement.appendChild(li);
@@ -40,10 +49,10 @@ function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
         section.classList.remove('active');
+        if (section.id === sectionId) {
+            section.classList.add('active');
+        }
     });
-
-    const activeSection = document.getElementById(sectionId);
-    activeSection.classList.add('active');
 }
 
 // Function to handle checkout
@@ -109,7 +118,7 @@ function updatePurchaseHistory(orderDetails) {
         <strong>Payment Method:</strong> ${orderDetails.paymentMethod}<br>
         <strong>Products:</strong><br>
         <ul>
-            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)}</li>`).join('')}
+            ${orderDetails.products.map(product => `<li>${product.product} - NPR ${product.price.toFixed(2)} x ${product.quantity}</li>`).join('')}
         </ul><br>
     `;
     purchaseHistory.appendChild(li);
@@ -134,15 +143,8 @@ function handleEditDetails(event) {
     document.getElementById('user-email').textContent = `Email: ${email}`;
 
     // Hide the edit details form after submission
-    const editDetailsForm = document.getElementById('edit-details-form');
-    editDetailsForm.classList.add('hidden');
+    toggleEditDetailsForm();
 }
-
-// Event listener for edit details form submission
-document.getElementById('edit-details-form').addEventListener('submit', handleEditDetails);
-
-// Event listener for checkout form submission
-document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
 
 // Sample products
 const products = [
@@ -158,19 +160,84 @@ const products = [
     { name: "Product 10", price: 100.00, image: "https://via.placeholder.com/150" }
 ];
 
-// Display products
-const productsGrid = document.querySelector('.products-grid');
-products.forEach(product => {
-    const productElement = document.createElement('div');
-    productElement.classList.add('product');
-    productElement.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p class="price">NPR ${product.price.toFixed(2)}</p>
-        <button onclick="addToCart(this, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
-    `;
-    productsGrid.appendChild(productElement);
-});
+// Function to display products
+function displayProducts() {
+    const productsGrid = document.querySelector('.products-grid');
+    productsGrid.innerHTML = '';
+    products.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" onclick="showProductDetails('${product.name}', ${product.price}, '${product.image}')">
+            <h3>${product.name}</h3>
+            <p class="price">NPR ${product.price.toFixed(2)}</p>
+            <button onclick="showProductDetails('${product.name}', ${product.price}, '${product.image}')">View Details</button>
+        `;
+        productsGrid.appendChild(productElement);
+    });
+}
 
-// Show the home section by default
-showSection('home');
+// Function to show product details
+function showProductDetails(name, price, image) {
+    const productDetails = document.getElementById('product-details');
+    productDetails.innerHTML = `
+        <img src="${image}" alt="${name}">
+        <h2>${name}</h2>
+        <p>NPR ${price.toFixed(2)}</p>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <button onclick="addToCart(this, '${name}', ${price}, '${image}', parseInt(document.getElementById('quantity').value))">Add to Cart</button>
+        <button onclick="closeProductDetails()">Close</button>
+    `;
+    productDetails.style.display = 'block';
+    showSection('product-details'); // Show the product details section
+}
+
+// Function to close product details
+function closeProductDetails() {
+    const productDetails = document.getElementById('product-details');
+    productDetails.style.display = 'none';
+    showSection('home'); // Return to the home section
+}
+
+// Function to search products
+function searchProducts() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchTerm));
+    const productsGrid = document.querySelector('.products-grid');
+    productsGrid.innerHTML = '';
+    filteredProducts.forEach(product => {
+        const productElement = document.createElement('div');
+        productElement.classList.add('product');
+        productElement.innerHTML = `
+            <img src="${product.image}" alt="${product.name}" onclick="showProductDetails('${product.name}', ${product.price}, '${product.image}')">
+            <h3>${product.name}</h3>
+            <p class="price">NPR ${product.price.toFixed(2)}</p>
+            <button onclick="showProductDetails('${product.name}', ${product.price}, '${product.image}')">View Details</button>
+        `;
+        productsGrid.appendChild(productElement);
+    });
+}
+
+// Function to check login credentials
+function checkCredentials() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    const usernameHash = CryptoJS.MD5(username).toString();
+    const passwordHash = CryptoJS.MD5(password).toString();
+
+    console.log('Entered Username Hash:', usernameHash);
+    console.log('Entered Password Hash:', passwordHash);
+
+    const validUsernameHash = '07ad17bb399bde4741730d450a31d6ac'; 
+    const validPasswordHash = '4026311e5d62cfff81db892567fd48be'; 
+
+    if (usernameHash === validUsernameHash && passwordHash === validPasswordHash) {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('content').classList.remove('blur');
+        showSection('home');
+    } else {
+        alert('Invalid credentials, please email "private@sabdachalise.com.np" with subject "From sabdachalise.com.np"');
+    }
+}
