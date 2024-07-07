@@ -271,7 +271,7 @@ main {
     right: -5px;
     background: red;
     color: white;
-    border-radius: 50%;
+    border-radius: 51%;
     padding: 2px 5px;
     font-size: 12px;
 }

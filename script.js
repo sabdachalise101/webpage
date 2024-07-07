@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function sendEmail() {
     const subject = 'From sabdachalise.com.np';
-    const body = `Token number : ${emailCounter}`;
+    const body = `Token Number : ${emailCounter}`;
     const recipient = 'private@sabdachalise.com.np';
 
     // Create the mailto link
