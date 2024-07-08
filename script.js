@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('checkout-form').addEventListener('submit', handleCheckout);
     document.getElementById('edit-details-form').addEventListener('submit', handleEditDetails);
     document.getElementById('search-input').addEventListener('input', searchProducts);
+    loadCartFromLocalStorage();
 });
 
 // Function to add a product to the cart
@@ -15,6 +16,7 @@ function addToCart(button, product, price, image, quantity) {
     totalAmount += price * quantity;
     updateCart();
     updateCartCount();
+    saveCartToLocalStorage();
     button.disabled = true; // Disable the button after adding to cart
 }
 
@@ -145,6 +147,34 @@ function handleEditDetails(event) {
     // Hide the edit details form after submission
     toggleEditDetailsForm();
 }
+// Callback function to handle Google Sign-In
+function onSignIn(googleUser) {
+    const profile = googleUser.getBasicProfile();
+    document.getElementById('user-name-text').textContent = profile.getName();
+    document.getElementById('user-email-text').textContent = profile.getEmail();
+    
+    // Optionally, you can use this information to update your backend or perform other actions
+
+    // Hide the Google Sign-In button after successful sign-in
+    document.getElementById('g-signin').classList.add('hidden');
+}
+
+// Load the Google Sign-In button on page load
+function loadGoogleSignInButton() {
+    gapi.signin2.render('g-signin', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSignIn
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadGoogleSignInButton();
+});
+
 
 // Sample products
 const products = [
@@ -241,6 +271,7 @@ function checkCredentials() {
         alert('Invalid credentials, please email "private@sabdachalise.com.np" with subject "From sabdachalise.com.np"');
     }
 }
+
 let emailCounter = 1; // Initialize the counter
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -260,4 +291,21 @@ function sendEmail() {
 
     // Open the default email client with the mailto link
     window.location.href = mailtoLink;
+}
+
+// Function to save cart to local storage
+function saveCartToLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('totalAmount', totalAmount);
+}
+
+// Function to load cart from local storage
+function loadCartFromLocalStorage() {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
+        totalAmount = parseFloat(localStorage.getItem('totalAmount')) || 0;
+        updateCart();
+        updateCartCount();
+    }
 }

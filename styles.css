@@ -7,7 +7,7 @@ body {
 }
 
 header {
-    background-color: #007bff;
+    background-color: #00ff0d;
     color: white;
     padding: 10px 0;
     text-align: center;
@@ -112,12 +112,12 @@ main {
 
 .product p {
     font-size: 18px;
-    color: #007bff;
+    color: #00ff0d;
 }
 
 .product button {
     padding: 10px 20px;
-    background: #007bff;
+    background:#00ff0d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -192,7 +192,7 @@ main {
 
 #edit-details-form button {
     padding: 10px 20px;
-    background: #007bff;
+    background: #00ff0d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -234,7 +234,7 @@ main {
 
 #checkout-details button {
     padding: 10px 20px;
-    background: #007bff;
+    background: #00ff0d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -275,3 +275,66 @@ main {
     padding: 2px 5px;
     font-size: 12px;
 }
+#checkout-form input, #checkout-form select {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#checkout-form button {
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#checkout-form button:hover {
+    background: #218838;
+}
+
+/* Product Details Styles */
+#product-info {
+    text-align: center;
+}
+
+#product-info img {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px 0;
+}
+
+#product-info h3 {
+    margin: 10px 0;
+}
+
+#product-info p {
+    font-size: 18px;
+    color: #00ff0d;
+}
+
+#product-info button {
+    padding: 10px 20px;
+    background: #00ff0d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#product-info button:hover {
+    background: #00ff0d;
+}
+/* Hide Google Sign-In button initially */
+.hidden {
+    display: none;
+}
+
+/* Style Google Sign-In button */
+.g-signin2 {
+    margin-top: 20px;
+}
+
