@@ -83,6 +83,15 @@
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </div>
                 </div>
+                <a href="#" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
                 <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
                     <label for="edit-name">Name:</label>
                     <input type="text" id="edit-name" required>
