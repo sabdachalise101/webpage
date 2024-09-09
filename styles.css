@@ -117,7 +117,7 @@ main {
 
 .product button {
     padding: 10px 20px;
-    background:#00ff0d;
+    background: #00ff0d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -275,25 +275,6 @@ main {
     padding: 2px 5px;
     font-size: 12px;
 }
-#checkout-form input, #checkout-form select {
-    padding: 10px;
-    font-size: 16px;
-    width: 100%;
-}
-
-#checkout-form button {
-    padding: 10px 20px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-#checkout-form button:hover {
-    background: #218838;
-}
 
 /* Product Details Styles */
 #product-info {
@@ -328,6 +309,7 @@ main {
 #product-info button:hover {
     background: #00ff0d;
 }
+
 /* Hide Google Sign-In button initially */
 .hidden {
     display: none;
@@ -337,4 +319,3 @@ main {
 .g-signin2 {
     margin-top: 20px;
 }
-

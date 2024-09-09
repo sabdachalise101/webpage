@@ -1,13 +1,11 @@
-<!DOCTYPE html>
+V<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Secure E-commerce</title>
-    <meta name="google-adsense-account" content="ca-pub-3454562365323569">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569"
-     crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>Secure E-commerce</title>
+    <meta name="google-adsense-account" content="ca-pub-3454562365323569">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
     <!-- Google Sign-In API -->
     <meta name="google-signin-client_id" content="568400859790-7birgtmbt9v138q7qan4bo3loo4ggrmt.apps.googleusercontent.com">
@@ -15,12 +13,12 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    
-    <!-- Google Sign- In Button -->
+    <!-- Google Sign-In Button -->
     <div id="g-signin-button" class="hidden">
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
 
+    <!-- Overlay for login -->
     <div id="overlay" class="overlay">
         <div class="login-box">
             <h2>Login</h2>
@@ -82,27 +80,19 @@
                     <div id="g-signin-container">
                         <div class="g-signin2" data-onsuccess="onSignIn"></div>
                     </div>
+                    <a href="#" id="sign-out" onclick="signOut();">Sign out</a>
+                    <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
+                        <label for="edit-name">Name:</label>
+                        <input type="text" id="edit-name" required>
+                        <label for="edit-email">Email:</label>
+                        <input type="email" id="edit-email" required>
+                        <button type="submit">Save</button>
+                    </form>
+                    <h3>Purchase History</h3>
+                    <ul id="purchase-history">
+                        <!-- Purchase history items will be added here -->
+                    </ul>
                 </div>
-                <a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
-                <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
-                    <label for="edit-name">Name:</label>
-                    <input type="text" id="edit-name" required>
-                    <label for="edit-email">Email:</label>
-                    <input type="email" id="edit-email" required>
-                    <button type="submit">Save</button>
-                </form>
-                <h3>Purchase History</h3>
-                <ul id="purchase-history">
-                    <!-- Purchase history items will be added here -->
-                </ul>
             </section>
 
             <section id="checkout-details" class="section hidden">
@@ -129,7 +119,7 @@
             <section id="product-details" class="section hidden">
                 <h2>Product Details</h2>
                 <div id="product-info">
-                    <!-- Product details will be added Dynamically -->
+                    <!-- Product details will be added dynamically -->
                 </div>
             </section>
         </main>
@@ -140,17 +130,16 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="script.js" defer></script>
-    <footer><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569"
-        crossorigin="anonymous"></script>
-   <ins class="adsbygoogle"
-        style="display:block"
-        data-ad-format="autorelaxed"
-        data-ad-client="ca-pub-3454562365323569"
-        data-ad-slot="6650415353"></ins>
-   <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-   </script></footer>
+    <footer>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-format="autorelaxed"
+            data-ad-client="ca-pub-3454562365323569"
+            data-ad-slot="6650415353"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </footer>
 </body>
 </html>

@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('edit-details-form').addEventListener('submit', handleEditDetails);
     document.getElementById('search-input').addEventListener('input', searchProducts);
     loadCartFromLocalStorage();
+    loadGoogleSignInButton();
+    document.getElementById('sign-out').addEventListener('click', signOut);
 });
 
 // Function to add a product to the cart
@@ -147,16 +149,44 @@ function handleEditDetails(event) {
     // Hide the edit details form after submission
     toggleEditDetailsForm();
 }
+
 // Callback function to handle Google Sign-In
 function onSignIn(googleUser) {
     const profile = googleUser.getBasicProfile();
+
+    // Update the user details on the page
     document.getElementById('user-name-text').textContent = profile.getName();
     document.getElementById('user-email-text').textContent = profile.getEmail();
-    
-    // Optionally, you can use this information to update your backend or perform other actions
+
+    // Set the user's profile image
+    const profileImage = document.getElementById('user-profile-image');
+    profileImage.src = profile.getImageUrl(); // Get the profile image URL from the user's Google account
+    profileImage.style.display = 'block'; // Ensure the image is visible if hidden initially
 
     // Hide the Google Sign-In button after successful sign-in
     document.getElementById('g-signin').classList.add('hidden');
+
+    // Show the Sign-Out button after successful sign-in
+    document.getElementById('sign-out').style.display = 'block';
+}
+
+// Function to handle Google Sign-Out
+function signOut() {
+    const auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(() => {
+        console.log('User signed out.');
+
+        // Clear the user details from the page
+        document.getElementById('user-name-text').textContent = '';
+        document.getElementById('user-email-text').textContent = '';
+        document.getElementById('user-profile-image').style.display = 'none';
+
+        // Show the Google Sign-In button after sign-out
+        document.getElementById('g-signin').classList.remove('hidden');
+
+        // Hide the Sign-Out button after sign-out
+        document.getElementById('sign-out').style.display = 'none';
+    });
 }
 
 // Load the Google Sign-In button on page load
@@ -170,11 +200,6 @@ function loadGoogleSignInButton() {
         'onsuccess': onSignIn
     });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadGoogleSignInButton();
-});
-
 
 // Sample products
 const products = [
@@ -212,31 +237,27 @@ function showProductDetails(name, price, image) {
     const productDetails = document.getElementById('product-details');
     productDetails.innerHTML = `
         <img src="${image}" alt="${name}">
-        <h2>${name}</h2>
-        <p>NPR ${price.toFixed(2)}</p>
+        <h3>${name}</h3>
+        <p class="price">NPR ${price.toFixed(2)}</p>
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" value="1">
+        <input type="number" id="quantity" min="1" value="1">
         <button onclick="addToCart(this, '${name}', ${price}, '${image}', parseInt(document.getElementById('quantity').value))">Add to Cart</button>
-        <button onclick="closeProductDetails()">Close</button>
     `;
-    productDetails.style.display = 'block';
-    showSection('product-details'); // Show the product details section
+    showSection('product-details');
 }
 
-// Function to close product details
-function closeProductDetails() {
-    const productDetails = document.getElementById('product-details');
-    productDetails.style.display = 'none';
-    showSection('home'); // Return to the home section
-}
-
-// Function to search products
+// Search products based on input
 function searchProducts() {
-    const searchTerm = document.getElementById('search-input').value.toLowerCase();
-    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchTerm));
+    const query = document.getElementById('search-input').value.toLowerCase();
+    const filteredProducts = products.filter(product => product.name.toLowerCase().includes(query));
+    displayFilteredProducts(filteredProducts);
+}
+
+// Display filtered products
+function displayFilteredProducts(products) {
     const productsGrid = document.querySelector('.products-grid');
     productsGrid.innerHTML = '';
-    filteredProducts.forEach(product => {
+    products.forEach(product => {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
         productElement.innerHTML = `
@@ -249,62 +270,17 @@ function searchProducts() {
     });
 }
 
-// Function to check login credentials
-function checkCredentials() {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    const usernameHash = CryptoJS.MD5(username).toString();
-    const passwordHash = CryptoJS.MD5(password).toString();
-
-    console.log('Entered Username Hash:', usernameHash);
-    console.log('Entered Password Hash:', passwordHash);
-
-    const validUsernameHash = '07ad17bb399bde4741730d450a31d6ac'; 
-    const validPasswordHash = '4026311e5d62cfff81db892567fd48be'; 
-
-    if (usernameHash === validUsernameHash && passwordHash === validPasswordHash) {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('content').classList.remove('blur');
-        showSection('home');
-    } else {
-        alert('Invalid credentials, please email "private@sabdachalise.com.np" with subject "From sabdachalise.com.np"');
-    }
-}
-
-let emailCounter = 1; // Initialize the counter
-
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('send-email-button').addEventListener('click', sendEmail);
-});
-
-function sendEmail() {
-    const subject = 'From sabdachalise.com.np';
-    const body = `Token Number : ${emailCounter}`;
-    const recipient = 'private@sabdachalise.com.np';
-
-    // Create the mailto link
-    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // Increase the counter
-    emailCounter++;
-
-    // Open the default email client with the mailto link
-    window.location.href = mailtoLink;
-}
-
 // Function to save cart to local storage
 function saveCartToLocalStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
-    localStorage.setItem('totalAmount', totalAmount);
 }
 
 // Function to load cart from local storage
 function loadCartFromLocalStorage() {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        totalAmount = parseFloat(localStorage.getItem('totalAmount')) || 0;
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+        cart = JSON.parse(storedCart);
+        totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
         updateCart();
         updateCartCount();
     }
