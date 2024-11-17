@@ -221,7 +221,7 @@ function searchProducts() {
 function send_mailsabda() {
     const recipient = 'private@sabdachalise.com.np';
     const subject = 'Requesting assistance for login';
-    const body = 'Please find the details below.\nName:\nContact Number:\n...';
+    const body = 'Please fill the details without editing the default message.\nName:\nContact Number:\n Email:\nRequirement(optional):\n';
 
     // Construct the mailto link
     const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
