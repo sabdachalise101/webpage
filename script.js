@@ -241,19 +241,3 @@ function checkCredentials() {
         alert('Invalid credentials, please email "private@sabdachalise.com.np" with subject "From sabdachalise.com.np"');
     }
 }
-let emailCounter = 1; // Initialize the counter
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('send-email-button').addEventListener('click', sendEmail);
-});
-function sendEmail() {
-    const subject = 'From sabdachalise.com.np';
-    const body = `Token number : ${emailCounter}`;
-    const recipient = 'private@sabdachalise.com.np';
-    // Create the mailto link
-    const mailtoLink = `mailto:${recipient}?sub
-ject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    // Increase the counter
-    emailCounter++;
-    // Open the default email client with the mailto link
-    window.location.href = mailtoLink;
-}
