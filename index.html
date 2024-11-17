@@ -1,38 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure E-commerce</title>
-    <meta name="google-adsense-account" content="ca-pub-3454562365323569">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
-    <!-- Google Sign-In API -->
-    <meta name="google-signin-client_id" content="568400859790-7birgtmbt9v138q7qan4bo3loo4ggrmt.apps.googleusercontent.com">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-   <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6727b9ba4304e3196adc95ca/1ibpir0n8';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-    <script src="script.js" defer></script>
 </head>
-    
 <body>
-    <!-- Google Sign-In Button -->
-    <div id="g-signin-button" class="hidden">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    </div>
-
-    <!-- Overlay for login -->
+    <!-- Login Overlay -->
     <div id="overlay" class="overlay">
         <div class="login-box">
             <h2>Login</h2>
@@ -87,26 +63,21 @@ s0.parentNode.insertBefore(s1,s0);
             <section id="details" class="section">
                 <h2>My Details</h2>
                 <div id="user-info">
-                    <p id="user-name">Name: <span id="user-name-text">User</span></p>
-                    <p id="user-email">Email: <span id="user-email-text">register@gmail.com</span></p>
+                    <p id="user-name">Name: Sabda Chalise</p>
+                    <p id="user-email">Email: register@gmail.com</p>
                     <button onclick="toggleEditDetailsForm()">Edit Details</button>
-                    <!-- Google Sign-In button for signing in -->
-                    <div id="g-signin-container">
-                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    </div>
-                    <a href="#" id="sign-out" onclick="signOut();">Sign out</a>
-                    <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
-                        <label for="edit-name">Name:</label>
-                        <input type="text" id="edit-name" required>
-                        <label for="edit-email">Email:</label>
-                        <input type="email" id="edit-email" required>
-                        <button type="submit">Save</button>
-                    </form>
-                    <h3>Purchase History</h3>
-                    <ul id="purchase-history">
-                        <!-- Purchase history items will be added here -->
-                    </ul>
                 </div>
+                <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
+                    <label for="edit-name">Name:</label>
+                    <input type="text" id="edit-name" required>
+                    <label for="edit-email">Email:</label>
+                    <input type="email" id="edit-email" required>
+                    <button type="submit">Save</button>
+                </form>
+                <h3>Purchase History</h3>
+                <ul id="purchase-history">
+                    <!-- Purchase history items will be added here -->
+                </ul>
             </section>
 
             <section id="checkout-details" class="section hidden">
@@ -144,17 +115,7 @@ s0.parentNode.insertBefore(s1,s0);
         </div>
     </div>
 
-    <footer>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3454562365323569" crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-format="autorelaxed"
-            data-ad-client="ca-pub-3454562365323569"
-            data-ad-slot="6650415353"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
-
