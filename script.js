@@ -218,7 +218,17 @@ function searchProducts() {
         productsGrid.appendChild(productElement);
     });
 }
+function send_mailsabda() {
+    const recipient = 'private@sabdachalise.com.np';
+    const subject = 'Requesting assistance for login';
+    const body = 'Please find the details below.\nName:\nContact Number:\n...';
 
+    // Construct the mailto link
+    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Trigger the email client
+    window.location.href = mailtoLink;
+}
 // Function to check login credentials
 function checkCredentials() {
     const username = document.getElementById('username').value;
