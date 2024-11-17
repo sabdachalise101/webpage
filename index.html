@@ -16,7 +16,12 @@
             <input type="checkbox
             <button onclick="checkCredentials()">Submit</button>
             <button onclick="send_mailsabda()">Send Email</button>
-            <input type="checkbox" id="accept"> Accept privacy policy <a href="https://www.sabdachalise.com.np/privacypolicy" target="_blank">Privacy</a> and <a href="https://www.sabdachalise.com.np/privacypolicy" target="_blank">Policy</a>
+        <button onclick="redirectToPrivacyPolicy()">Go to Privacy Policy</button>
+
+    <script>
+        function redirectToPrivacyPolicy() {
+            window.open('https://www.sabdachalise.com.np/privacypolicy', '_blank');
+        }
     
         </div>
     </div>
@@ -32,9 +37,8 @@
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    <!--End of Tawk.to Script-->
+    
 
-    <!-- Main Content -->
     <div id="content" class="blur">
         <header>
             <h1>My E-commerce Store</h1>
