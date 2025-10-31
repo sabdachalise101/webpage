@@ -1,698 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabda Chalise - Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
-            transition: background 0.5s ease;
-            cursor: none; 
-        }
-
-        body.dark-mode {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: #ffa500;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.1s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-        }
-
-        
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-            animation: twinkle 20s linear infinite;
-        }
-
-        @keyframes twinkle {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); }
-        }
-
-        .hero-content {
-            z-index: 2;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #fff, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #ff6b6b, #ffa500);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            animation: pulse 2s infinite;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
-            }
-            50% {
-                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.6);
-            }
-        }
-
-        
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .shape:nth-child(1) {
-            width: 100px;
-            height: 100px;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            top: 20%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 4s;
-        }
-
-        .shape:nth-child(4) {
-            width: 120px;
-            height: 120px;
-            bottom: 10%;
-            right: 20%;
-            animation-delay: 1s;
-            background: rgba(255, 165, 0, 0.1);
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-            }
-        }
-
-        
-        .game {
-            padding: 100px 0;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-        }
-
-        .game h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-out 0.5s both;
-        }
-
-        .game p {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            animation: fadeIn 1s ease-out 1s both;
-        }
-
-        .game-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            overflow: hidden;
-            animation: slideInUp 1s ease-out 1.5s both;
-        }
-
-        .star {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background: #ffd700;
-            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-            animation: fall 3s linear infinite;
-            cursor: pointer;
-        }
-
-        @keyframes fall {
-            0% { top: -30px; }
-            100% { top: 400px; }
-        }
-
-        .score {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffd700;
-        }
-
-        .game-button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ffa500);
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .game-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
-        }
-
-        /* Popup Text */
-        .popup-text {
-            position: fixed;
-            font-size: 1rem;
-            color: #ffa500;
-            pointer-events: none;
-            z-index: 9998;
-            animation: popup 1s ease-out forwards;
-            text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
-        }
-
-        @keyframes popup {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) translateY(20px);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2) translateY(-10px);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1) translateY(-30px);
-            }
-        }
-
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .dark-mode-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Maintenance Banner */
-        .maintenance {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: #ffa500;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 1rem;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            animation: slideInFromBottom 1s ease-out 2s both;
-            z-index: 1000;
-        }
-
-        @keyframes slideInFromBottom {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(100px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-10px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-5px);
-            }
-        }
-
-        .scroll-indicator::after {
-            content: '↓';
-            font-size: 2rem;
-            color: #fff;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .hero p {
-                font-size: 1.2rem;
-            }
-            .game h2 {
-                font-size: 2rem;
-            }
-            .game-container {
-                height: 300px;
-            }
-            .shape {
-                display: none;
-            }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sabda Chalise - Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;overflow-x:hidden;min-height:100vh;transition:background .5s;cursor:none}
+body.dark-mode{background:linear-gradient(135deg,#2c3e50 0%,#34495e 100%)}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+.cursor{position:fixed;width:20px;height:20px;background:#ffa500;border-radius:50%;pointer-events:none;z-index:9999;transition:transform .08s linear,mix-blend-mode .2s}
+.cursor.hover{transform:scale(2)}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.08)"/></svg>') repeat;animation:twinkle 20s linear infinite}
+@keyframes twinkle{0%{transform:translateY(0)}100%{transform:translateY(-100px)}}
+.hero-content{z-index:2;animation:fadeInUp 1.2s ease-out}
+@keyframes fadeInUp{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
+.hero h1{font-size:4rem;font-weight:700;margin-bottom:20px;text-shadow:0 5px 15px rgba(0,0,0,.3);background:linear-gradient(45deg,#fff,#ffa500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.5rem;font-weight:300;margin-bottom:40px;opacity:.9}
+.cta-button{display:inline-block;padding:15px 40px;background:linear-gradient(45deg,#ff6b6b,#ffa500);color:#fff;text-decoration:none;font-weight:600;font-size:1.2rem;border-radius:50px;transition:all .3s ease;box-shadow:0 10px 30px rgba(255,107,107,.4);position:relative;overflow:hidden}
+.cta-button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .5s}
+.cta-button:hover::before{left:100%}
+.cta-button:hover{transform:translateY(-5px) scale(1.03)}
+.shape{position:absolute;border-radius:50%;background:rgba(255,255,255,.08);animation:float 6s ease-in-out infinite}
+.shape:nth-child(1){width:100px;height:100px;top:10%;left:10%}
+.shape:nth-child(2){width:150px;height:150px;top:20%;right:10%}
+.shape:nth-child(3){width:80px;height:80px;bottom:20%;left:20%}
+.shape:nth-child(4){width:120px;height:120px;bottom:10%;right:20%;background:rgba(255,165,0,.08)}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-20px) rotate(180deg)}}
+.game{padding:80px 0 140px;text-align:center;background:rgba(255,255,255,.03);backdrop-filter:blur(6px)}
+.game h2{font-size:2.4rem;margin-bottom:10px;animation:fadeIn 1s ease-out}
+.game p{font-size:1.05rem;margin-bottom:20px;opacity:.95}
+.game-container{position:relative;width:100%;max-width:720px;height:480px;margin:16px auto;background-size:cover;background-position:center;border-radius:14px;overflow:hidden;border:2px solid rgba(255,165,0,.45);box-shadow:inset 0 0 20px rgba(255,165,0,.12)}
+.star{position:absolute;width:44px;height:44px;background:#ffd700;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);cursor:pointer;transition:transform .08s linear;will-change:transform;z-index:50;touch-action:none}
+.star:hover{transform:scale(1.15)}
+.star.bomb{background:#ff4500;clip-path:circle(50%)}
+.star.shooting{background:#00ff00;clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%)}
+.star.powerup{background:#ff00ff;box-shadow:0 0 10px rgba(255,0,255,.6)}
+@keyframes fall{0%{top:-60px;opacity:1}100%{top:520px;opacity:1}}
+.score{position:absolute;top:16px;left:16px;font-size:1.1rem;font-weight:700;color:#ffd700;text-shadow:0 0 10px rgba(255,215,0,.5);z-index:60}
+.level{position:absolute;top:16px;right:16px;font-size:1rem;font-weight:700;color:#ffa500;text-shadow:0 0 10px rgba(255,165,0,.5);z-index:60}
+.timer{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:1rem;font-weight:700;color:#ff6b6b;text-shadow:0 0 10px rgba(255,107,107,.5);z-index:60}
+.high-score{position:absolute;bottom:14px;right:16px;font-size:.95rem;font-weight:700;color:#00ff00;text-shadow:0 0 10px rgba(0,255,0,.5);z-index:60}
+.game-button{display:inline-block;margin:12px 10px;padding:12px 18px;background:linear-gradient(45deg,#ff6b6b,#ffa500);color:#fff;border:none;border-radius:20px;font-size:1rem;font-weight:600;cursor:pointer;transition:transform .15s ease}
+.game-button:active{transform:scale(.98)}
+.particle{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;animation:explode .6s ease-out forwards;z-index:70}
+@keyframes explode{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0)}}
+.powerup-effect{position:fixed;font-size:1.6rem;color:#ff00ff;text-shadow:0 0 20px rgba(255,0,255,.8);animation:powerupFlash 1s ease-out forwards;pointer-events:none;z-index:80}
+@keyframes powerupFlash{0%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.4)}100%{opacity:0;transform:scale(2)}}
+.popup-text{position:fixed;font-size:1rem;color:#ffa500;pointer-events:none;z-index:9998;animation:popup .9s ease-out forwards;text-shadow:0 0 10px rgba(255,165,0,.5)}
+@keyframes popup{0%{opacity:0;transform:scale(.5) translateY(20px)}50%{opacity:1;transform:scale(1.2) translateY(-10px)}100%{opacity:0;transform:scale(1) translateY(-30px)}}
+.overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:200;background:rgba(0,0,0,.6);color:#fff;font-size:1.2rem;display:none}
+.overlay.show{display:flex}
+.dark-mode-toggle{position:fixed;top:16px;right:16px;background:rgba(255,255,255,.08);border:none;border-radius:50%;width:48px;height:48px;color:#fff;font-size:1.2rem;cursor:pointer;z-index:1000;backdrop-filter:blur(8px)}
+.dark-mode-toggle:active{transform:scale(.98)}
+.scroll-indicator{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);animation:bounce 2s infinite}
+@keyframes bounce{0%,20%,50%,80%,100%{transform:translateX(-50%) translateY(0)}40%{transform:translateX(-50%) translateY(-10px)}60%{transform:translateX(-50%) translateY(-5px)}}
+.scroll-indicator::after{content:'↓';font-size:2rem;color:#fff}
+@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+@keyframes slideInUp{0%{opacity:0;transform:translateY(40px)}100%{opacity:1;transform:translateY(0)}}
+@media (max-width:900px){
+.hero h1{font-size:2.4rem}
+.hero p{font-size:1.05rem}
+.game-container{height:420px}
+.star{width:56px;height:56px}
+}
+@media (max-width:560px){
+.hero h1{font-size:2rem}
+.hero p{font-size:.95rem}
+.game-container{height:360px;border-radius:12px}
+.star{width:68px;height:68px}
+.game-button{padding:14px 20px;border-radius:18px}
+}
+</style>
 </head>
 <body>
-    <div class="cursor" id="cursor"></div>
-
-    <button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
-
-    <div class="shape"></div>
-    <div class="shape"></div>
-    <div class="shape"></div>
-    <div class="shape"></div>
-
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Sabda Chalise</h1>
-                <p>Welcome to my world</p>
-                <a href="#game" class="cta-button">Let's Connect</a>
-            </div>
-        </div>
-        <div class="scroll-indicator"></div>
-    </section>
-
-    <section class="game" id="game">
-        <div class="container">
-            <h2>Interactive Star Catcher Game</h2>
-            <p>Click on the falling stars to collect them and increase your score! How many can you catch?</p>
-            <div class="game-container" id="gameContainer">
-                <div class="score" id="score">Score: 0</div>
-            </div>
-            <button class="game-button" id="startGame">Start Game</button>
-            <button class="game-button" id="resetGame">Reset</button>
-        </div>
-    </section>
-
-    <div class="maintenance">
-        Sorry, the page is under maintenance. Check back soon!
-    </div>
-
-    <script>
-        // Custom cursor
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        document.addEventListener('mouseenter', () => cursor.style.opacity = '1');
-        document.addEventListener('mouseleave', () => cursor.style.opacity = '0');
-
-        // Hover effect on elements
-        document.querySelectorAll('a, button').forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-
-        // Device orientation for tilting button
-        const ctaButton = document.querySelector('.cta-button');
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (event) => {
-                const tiltX = event.beta / 90; // -1 to 1
-                const tiltY = event.gamma / 90; // -1 to 1
-                ctaButton.style.transform = `rotateX(${tiltX * 10}deg) rotateY(${tiltY * 10}deg)`;
-            });
-        }
-
-        // Random popup text on hover
-        const popupTexts = [
-            "Nice!", "Awesome!", "Cool!", "Fantastic!", "Amazing!", "Brilliant!", "Super!", "Epic!", "Rad!", "Wicked!"
-        ];
-
-        document.addEventListener('mousemove', (e) => {
-            if (Math.random() < 0.01) { // 1% chance per mouse move
-                const popup = document.createElement('div');
-                popup.className = 'popup-text';
-                popup.textContent = popupTexts[Math.floor(Math.random() * popupTexts.length)];
-                popup.style.left = e.clientX + 'px';
-                popup.style.top = e.clientY + 'px';
-                document.body.appendChild(popup);
-                setTimeout(() => popup.remove(), 1000);
-            }
-        });
-
-        // Game logic
-        const gameContainer = document.getElementById('gameContainer');
-        const scoreElement = document.getElementById('score');
-        const startButton = document.getElementById('startGame');
-        const resetButton = document.getElementById('resetGame');
-        let score = 0;
-        let gameInterval;
-        let stars = [];
-
-        function createStar() {
-            const star = document.createElement('div');
-            star.className = 'star';
-            star.style.left = Math.random() * (gameContainer.offsetWidth - 30) + 'px';
-            star.style.animationDuration = (2 + Math.random() * 2) + 's'; // Random fall speed
-            star.addEventListener('click', () => {
-                score++;
-                scoreElement.textContent = 'Score: ' + score;
-                star.remove();
-                stars = stars.filter(s => s !== star);
-            });
-            gameContainer.appendChild(star);
-            stars.push(star);
-
-            // Remove star after animation
-            setTimeout(() => {
-                if (star.parentNode) {
-                    star.remove();
-                    stars = stars.filter(s => s !== star);
-                }
-            }, 4000);
-        }
-
-        function startGame() {
-            score = 0;
-            scoreElement.textContent = 'Score: 0';
-            gameInterval = setInterval(createStar, 1000); // Create a star every second
-        }
-
-        function resetGame() {
-            clearInterval(gameInterval);
-            stars.forEach(star => star.remove());
-            stars = [];
-            score = 0;
-            scoreElement.textContent = 'Score: 0';
-        }
-
-        startButton.addEventListener('click', startGame);
-        resetButton.addEventListener('click', resetGame);
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure E-commerce</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    
-    <div id="overlay" class="overlay">
-        <div class="login-box">
-            <h2>Login</h2>
-            <input type="text" id="username" placeholder="Username">
-            <input type="password" id="password" placeholder="Password">
-            <button onclick="checkCredentials()">Submit</button>
-            <button onclick="send_mailsabda()">Send Email</button>
-        
-        </div>
-    </div>
-
-    <script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/6727b9ba4304e3196adc95ca/1ibpir0n8';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    
-
-    <div id="content" class="blur">
-        <header>
-            <h1>My E-commerce Store</h1>
-            <div class="header-icons">
-                <div id="search-icon" onclick="toggleSearch()">
-                    <img src="https://img.icons8.com/material-outlined/24/000000/search--v1.png" alt="Search">
-                </div>
-                <div id="cart">
-                    <span id="cart-count">0</span> items in cart
-                </div>
-            </div>
-            <div id="search-bar" class="hidden">
-                <input type="text" id="search-input" placeholder="Search products...">
-                <button onclick="searchProducts()">Search</button>
-            </div>
-        </header>
-
-        <nav>
-            <button onclick="showSection('home')">Home</button>
-            <button onclick="showSection('cart')">My Cart (<span id="cart-count">0</span>)</button>
-            <button onclick="showSection('details')">My Details</button>
-        </nav>
-
-        <main>
-            <section id="home" class="section active">
-                <h2>Home</h2>
-                <div class="products-grid">
-                    <!-- Product items will be added dynamically -->
-                </div>
-            </section>
-
-            <section id="cart" class="section">
-                <h2>My Cart</h2>
-                <ul id="cart-items">
-                    
-                </ul>
-                <p id="total">Total: NPR <span id="total-amount">0.00</span></p>
-                <button id="checkout" onclick="checkout()">Checkout</button>
-            </section>
-
-            <section id="details" class="section">
-                <h2>My Details</h2>
-                <div id="user-info">
-                    <p id="user-name">Name: Sabda Chalise</p>
-                    <p id="user-email">Email: register@gmail.com</p>
-                    <button onclick="toggleEditDetailsForm()">Edit Details</button>
-                </div>
-                <form id="edit-details-form" class="hidden" onsubmit="handleEditDetails(event)">
-                    <label for="edit-name">Name:</label>
-                    <input type="text" id="edit-name" required>
-                    <label for="edit-email">Email:</label>
-                    <input type="email" id="edit-email" required>
-                    <button type="submit">Save</button>
-                </form>
-                <h3>Purchase History</h3>
-                <ul id="purchase-history">
-                    
-                </ul>
-            </section>
-
-            <section id="checkout-details" class="section hidden">
-                <h2>Checkout Details</h2>
-                <form id="checkout-form" onsubmit="handleCheckout(event)">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" required>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" required>
-                    <label for="phone">Phone:</label>
-                    <input type="text" id="phone" required>
-                    <label for="address">Address:</label>
-                    <input type="text" id="address" required>
-                    <label for="payment">Payment Method:</label>
-                    <select id="payment" required>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Debit Card">Debit Card</option>
-                        <option value="PayPal">PayPal</option>
-                    </select>
-                    <button type="submit">Place Order</button>
-                </form>
-            </section>
-
-            <section id="product-details" class="section hidden">
-                <h2>Product Details</h2>
-                <div id="product-info">
-                    <!-- Product details will be added dynamically -->
-                </div>
-            </section>
-        </main>
-
-        <div id="floating-cart" onclick="showSection('cart')">
-            <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart--v1.png" alt="Cart">
-            <span id="floating-cart-count">0</span>
-        </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script src="script.js"></script>
+<div class="cursor" id="cursor"></div>
+<button class="dark-mode-toggle" id="darkModeToggle"><i class="fas fa-moon"></i></button>
+<div class="shape"></div>
+<div class="shape"></div>
+<div class="shape"></div>
+<div class="shape"></div>
+<section class="hero">
+<div class="container">
+<div class="hero-content">
+<h1>Sabda Chalise</h1>
+<p>Welcome to my world</p>
+<a href="mailto:private@sabdachalise.com.np?subject=contact%20from%20website&body=Hello%2C%20I%20would%20like%20to%20connect%20with%20you.%20Please%20provide%20some%20details%20about%20your%20inquiry." class="cta-button" id="connectBtn">Let's Connect</a>
+</div>
+</div>
+<div class="scroll-indicator"></div>
+</section>
+<section class="game" id="game">
+<div class="container">
+<h2>Interactive Star Catcher Game</h2>
+<p>Catch stars for points, bombs to clear the screen, shooting stars for bonuses, and power-ups for special effects. Levels change the map!</p>
+<div class="game-container" id="gameContainer" role="application" tabindex="0" aria-label="Star Catcher game area">
+<div class="score" id="score">Score: 0</div>
+<div class="level" id="level">Level: 1</div>
+<div class="timer" id="timer">Time: 60s</div>
+<div class="high-score" id="highScore">High Score: 0</div>
+<div class="overlay" id="overlay"></div>
+</div>
+<div style="margin-top:18px;">
+<button class="game-button" id="startGame">Start Game</button>
+<button class="game-button" id="resetGame">Reset</button>
+<button class="game-button" id="modeToggle">Mode: Classic</button>
+</div>
+</div>
+</section>
+<script>
+const cursor=document.getElementById('cursor')
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'})
+document.addEventListener('mouseenter',()=>cursor.style.opacity='1')
+document.addEventListener('mouseleave',()=>cursor.style.opacity='0')
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))})
+const darkModeToggle=document.getElementById('darkModeToggle')
+darkModeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');const i=darkModeToggle.querySelector('i');i.classList.toggle('fa-moon');i.classList.toggle('fa-sun')})
+const gameContainer=document.getElementById('gameContainer')
+const startBtn=document.getElementById('startGame')
+const resetBtn=document.getElementById('resetGame')
+const modeBtn=document.getElementById('modeToggle')
+const scoreEl=document.getElementById('score')
+const levelEl=document.getElementById('level')
+const timerEl=document.getElementById('timer')
+const highScoreEl=document.getElementById('highScore')
+const overlay=document.getElementById('overlay')
+let spawnIntervalId=null
+let gameTimerId=null
+let spawnRate=1100
+let running=false
+let timeLeft=60
+let score=0
+let level=1
+const maxHighScoreKey='sabda_star_highscore'
+let highScore=parseInt(localStorage.getItem(maxHighScoreKey)||'0',10)
+let pointMultiplier=1
+let powerupTimeout=null
+let mode='Classic'
+highScoreEl.textContent=`High Score: ${highScore}`
+const STAR_TYPES=[{type:'normal',weight:70,points:10},{type:'shooting',weight:12,points:30},{type:'bomb',weight:10,points:-15},{type:'powerup',weight:8,points:0}]
+function weightedRandomType(){const total=STAR_TYPES.reduce((s,t)=>s+t.weight,0);let r=Math.random()*total;for(const t of STAR_TYPES){if(r<t.weight)return t;r-=t.weight}return STAR_TYPES[0]}
+const levelMaps=[
+{url:'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=0f2a3b3c9c0d2b6b9d4b8abf8d6a0c2d',name:'Space'},
+{url:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f6b6ab8a2f1a5f0b6d6c6b7d8e9f0a1',name:'Forest'},
+{url:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a5e56f1c9d3d3b4b4c4d6e6f7a8b9c0',name:'Ocean'},
+{url:'https://images.unsplash.com/photo-1501785888041-af3ef285b470?crop=entropy&q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=ff6b6c6a7b8a9c0d1e2f3a4b5c6d7e8',name:'Desert'},
+{url:'https://images.unsplash.com/photo-1499346030926-9a72daac6c63?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=4b3a2c1d0e9f8a7b6c5d4e3f2a1b0c9d',name:'Neon City'}
+]
+function setMapForLevel(l){
+const idx=(l-1)%levelMaps.length
+gameContainer.style.backgroundImage=`linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.08)),url('${levelMaps[idx].url}')`
+}
+setMapForLevel(level)
+function spawnStar(){
+if(!running)return
+const spec=weightedRandomType()
+const star=document.createElement('div')
+star.classList.add('star')
+star.classList.add(spec.type)
+star.dataset.type=spec.type
+star.dataset.points=spec.points
+const containerRect=gameContainer.getBoundingClientRect()
+const minLeft=8
+const maxLeft=containerRect.width-56
+const left=Math.max(minLeft,Math.random()*(Math.max(minLeft,maxLeft)-minLeft))
+star.style.left=left+'px'
+let baseDuration=4.8-Math.min(level*0.28,2.2)
+if(mode==='Arcade')baseDuration*=0.7
+if(spec.type==='shooting')baseDuration*=0.6
+if(spec.type==='bomb')baseDuration*=0.9
+if(spec.type==='powerup')baseDuration*=1.0
+const duration=(baseDuration*(0.7+Math.random()*0.6)).toFixed(2)
+star.style.animation=`fall ${duration}s linear forwards`
+star.style.pointerEvents='auto'
+function endHandler(){if(star.parentElement)star.remove();star.removeEventListener('animationend',endHandler)}
+star.addEventListener('animationend',endHandler)
+function handleClick(ev){
+ev.stopPropagation()
+if(!running)return
+const t=star.dataset.type
+if(t==='normal'){addScore(parseInt(star.dataset.points,10)*pointMultiplier,star);createParticles(star,'#ffd700')}
+else if(t==='shooting'){addScore(parseInt(star.dataset.points,10)*pointMultiplier,star);createParticles(star,'#00ff00');flashPowerupText('+SHOOT!',star)}
+else if(t==='bomb'){addScore(parseInt(star.dataset.points,10),star);createExplosion(star);clearAllStars();flashPowerupText('BOOM!',star)}
+else if(t==='powerup'){activatePowerup();flashPowerupText('2x POINTS!',star);createParticles(star,'#ff00ff')}
+star.remove()
+}
+star.addEventListener('click',handleClick)
+star.addEventListener('touchstart',function(e){e.preventDefault();handleClick(e)})
+gameContainer.appendChild(star)
+}
+function addScore(pts,originEl=null){
+score+=pts
+if(score<0)score=0
+scoreEl.textContent=`Score: ${score}`
+if(originEl){
+const rect=originEl.getBoundingClientRect()
+const popup=document.createElement('div')
+popup.className='popup-text'
+popup.style.left=`${rect.left+rect.width/2}px`
+popup.style.top=`${rect.top}px`
+popup.style.transform='translate(-50%,-50%)'
+popup.textContent=(pts>=0?`+${pts}`:`${pts}`)
+document.body.appendChild(popup)
+setTimeout(()=>popup.remove(),900)
+}
+const newLevel=Math.floor(score/100)+1
+if(newLevel!==level){level=newLevel;levelEl.textContent=`Level: ${level}`;setMapForLevel(level);adjustSpawnRate();smallOverlay(`Level ${level}`)}
+}
+function adjustSpawnRate(){
+spawnRate=Math.max(300,1100-(level-1)*85)
+if(mode==='Arcade')spawnRate=Math.max(220,Math.round(spawnRate*0.7))
+restartSpawner()
+}
+function createParticles(originEl,color='#ffd700'){
+const rect=originEl.getBoundingClientRect()
+for(let i=0;i<10;i++){
+const p=document.createElement('div')
+p.className='particle'
+p.style.left=rect.left+rect.width/2+'px'
+p.style.top=rect.top+rect.height/2+'px'
+p.style.background=color
+const vx=(Math.random()-0.5)*240
+const vy=(Math.random()-0.5)*240
+p.style.transform=`translate(${vx}px,${vy}px)`
+document.body.appendChild(p)
+setTimeout(()=>p.remove(),620)
+}
+}
+function createExplosion(originEl){
+createParticles(originEl,'#ff4500')
+}
+function flashPowerupText(text,originEl){
+const rect=originEl.getBoundingClientRect()
+const el=document.createElement('div')
+el.className='powerup-effect'
+el.style.left=`${rect.left+rect.width/2}px`
+el.style.top=`${rect.top}px`
+el.style.transform='translate(-50%,-50%)'
+el.textContent=text
+document.body.appendChild(el)
+setTimeout(()=>el.remove(),1100)
+}
+function activatePowerup(){
+pointMultiplier=2
+if(powerupTimeout)clearTimeout(powerupTimeout)
+smallOverlay('2x Points!')
+powerupTimeout=setTimeout(()=>{pointMultiplier=1;smallOverlay('2x Ended')},10000)
+}
+function clearAllStars(){
+const stars=Array.from(gameContainer.querySelectorAll('.star'))
+stars.forEach(s=>{createParticles(s,'#ffcccc');s.remove()})
+}
+function smallOverlay(text){
+overlay.textContent=text
+overlay.classList.add('show')
+setTimeout(()=>overlay.classList.remove('show'),1100)
+}
+function startSpawner(){
+if(spawnIntervalId)clearInterval(spawnIntervalId)
+spawnIntervalId=setInterval(()=>{spawnStar();if(Math.random()<Math.min(.15+level*.02,.5))spawnStar()},spawnRate)
+}
+function stopSpawner(){if(spawnIntervalId){clearInterval(spawnIntervalId);spawnIntervalId=null}}
+function restartSpawner(){stopSpawner();if(running)startSpawner()}
+function startTimer(){clearInterval(gameTimerId);timerEl.textContent=`Time: ${timeLeft}s`;gameTimerId=setInterval(()=>{timeLeft--;timerEl.textContent=`Time: ${timeLeft}s`;if(timeLeft<=0)endGame()},1000)}
+function stopTimer(){if(gameTimerId){clearInterval(gameTimerId);gameTimerId=null}}
+function startGame(){
+if(running)return
+running=true
+score=0
+level=1
+scoreEl.textContent=`Score: ${score}`
+levelEl.textContent=`Level: ${level}`
+timeLeft=60
+timerEl.textContent=`Time: ${timeLeft}s`
+setMapForLevel(level)
+adjustSpawnRate()
+startSpawner()
+startTimer()
+smallOverlay('Game Started!')
+}
+function endGame(){
+running=false
+stopSpawner()
+stopTimer()
+if(score>highScore){highScore=score;localStorage.setItem(maxHighScoreKey,String(highScore))}
+highScoreEl.textContent=`High Score: ${highScore}`
+overlay.innerHTML=`<div style="text-align:center"><div style="font-size:1.4rem;font-weight:700">Time's up!</div><div style="margin-top:8px">Score: ${score}</div><div style="margin-top:8px">High Score: ${highScore}</div></div>`
+overlay.classList.add('show')
+setTimeout(()=>overlay.classList.remove('show'),2500)
+}
+function resetGame(){
+running=false
+stopSpawner()
+stopTimer()
+timeLeft=60
+score=0
+level=1
+pointMultiplier=1
+if(powerupTimeout){clearTimeout(powerupTimeout);powerupTimeout=null}
+levelEl.textContent=`Level: ${level}`
+scoreEl.textContent=`Score: ${score}`
+timerEl.textContent=`Time: ${timeLeft}s`
+clearAllStars()
+overlay.classList.remove('show')
+}
+modeBtn.addEventListener('click',()=>{mode=(mode==='Classic')?'Arcade':'Classic';modeBtn.textContent=`Mode: ${mode}`;adjustSpawnRate();smallOverlay(`${mode} Mode`)})
+startBtn.addEventListener('click',()=>{startGame()})
+resetBtn.addEventListener('click',()=>{resetGame()})
+gameContainer.addEventListener('click',()=>{})
+document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();if(!running)startGame()}else if(e.key.toLowerCase()==='r'){resetGame()}})
+window.addEventListener('beforeunload',()=>{stopSpawner();stopTimer()})
+window.addEventListener('load',()=>{const old=gameContainer.querySelectorAll('.star');old.forEach(x=>x.remove())})
+gameContainer.addEventListener('touchstart',e=>{e.preventDefault()})
+</script>
 </body>
 </html>
