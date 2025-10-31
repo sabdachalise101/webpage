@@ -1,4 +1,4 @@
-let cart = [];
+/*let cart = [];
 let totalAmount = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -251,3 +251,4 @@ function checkCredentials() {
         alert('Invalid credentials, please email "private@sabdachalise.com.np" with subject "From sabdachalise.com.np"');
     }
 }
+*/
