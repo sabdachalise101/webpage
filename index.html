@@ -101,7 +101,7 @@ body.dark-mode{background:linear-gradient(135deg,#2c3e50 0%,#34495e 100%)}
 <div class="game-container" id="gameContainer" role="application" tabindex="0" aria-label="Star Catcher game area">
 <div class="score" id="score">Score: 0</div>
 <div class="level" id="level">Level: 1</div>
-<div class="timer" id="timer">Time: 60s</div>
+<div class="timer" id="timer">Time: 20s</div>
 <div class="high-score" id="highScore">High Score: 0</div>
 <div class="overlay" id="overlay"></div>
 </div>
@@ -133,7 +133,7 @@ let spawnIntervalId=null
 let gameTimerId=null
 let spawnRate=1100
 let running=false
-let timeLeft=60
+let timeLeft=20
 let score=0
 let level=1
 const maxHighScoreKey='sabda_star_highscore'
@@ -170,7 +170,7 @@ const maxLeft=containerRect.width-56
 const left=Math.max(minLeft,Math.random()*(Math.max(minLeft,maxLeft)-minLeft))
 star.style.left=left+'px'
 let baseDuration=4.8-Math.min(level*0.28,2.2)
-if(mode==='Arcade')baseDuration*=0.7
+if(mode==='Arcade')baseDuration*=0.5
 if(spec.type==='shooting')baseDuration*=0.6
 if(spec.type==='bomb')baseDuration*=0.9
 if(spec.type==='powerup')baseDuration*=1.0
@@ -275,7 +275,7 @@ score=0
 level=1
 scoreEl.textContent=`Score: ${score}`
 levelEl.textContent=`Level: ${level}`
-timeLeft=60
+timeLeft=20
 timerEl.textContent=`Time: ${timeLeft}s`
 setMapForLevel(level)
 adjustSpawnRate()
@@ -297,7 +297,7 @@ function resetGame(){
 running=false
 stopSpawner()
 stopTimer()
-timeLeft=60
+timeLeft=20
 score=0
 level=1
 pointMultiplier=1
