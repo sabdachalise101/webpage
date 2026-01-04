@@ -111,17 +111,16 @@ body.dark-mode{background:linear-gradient(135deg,#2c3e50 0%,#34495e 100%)}
 <button class="game-button" id="modeToggle">Mode: Classic</button>
 </div>
 </div>
-</section>
+</section>-->
 <script>
 const cursor=document.getElementById('cursor')
 document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'})
 document.addEventListener('mouseenter',()=>cursor.style.opacity='1')
 document.addEventListener('mouseleave',()=>cursor.style.opacity='0')
-document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))})
+document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'))}) 
 const darkModeToggle=document.getElementById('darkModeToggle')
-darkModeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');const i=darkModeToggle.querySelector('i');i.classList.toggle('fa-moon');i.classList.toggle('fa-sun')})
-const gameContainer=document.getElementById('gameContainer')
-const startBtn=document.getElementById('startGame')
+darkModeToggle.addEventListener('click',()=>{document.body.classList.toggle('dark-mode');const i=darkModeToggle.querySelector('i');i.classList.toggle('fa-moon');i.classList.toggle('fa-sun')}) const gameContainer=document.getElementById('gameContainer')
+/*const startBtn=document.getElementById('startGame')
 const resetBtn=document.getElementById('resetGame')
 const modeBtn=document.getElementById('modeToggle')
 const scoreEl=document.getElementById('score')
@@ -315,7 +314,7 @@ gameContainer.addEventListener('click',()=>{})
 document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();if(!running)startGame()}else if(e.key.toLowerCase()==='r'){resetGame()}})
 window.addEventListener('beforeunload',()=>{stopSpawner();stopTimer()})
 window.addEventListener('load',()=>{const old=gameContainer.querySelectorAll('.star');old.forEach(x=>x.remove())})
-gameContainer.addEventListener('touchstart',e=>{e.preventDefault()})
+gameContainer.addEventListener('touchstart',e=>{e.preventDefault()})*/
 </script>
   -->
 <div class="maintenance-bubble" id="maintenanceBubble">Sorry, The page is under maintenance. Check back soon!!!.</div>
